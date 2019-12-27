@@ -5,11 +5,11 @@ VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ecs", "ecs\ecs.csproj", "{ADEAB544-1BD0-4914-B321-43F91C2313AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Core\Engine.csproj", "{B6F06CC8-106B-4BE4-9E92-CDAEB9D777AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Engine\Engine.csproj", "{B6F06CC8-106B-4BE4-9E92-CDAEB9D777AC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Game\Game.csproj", "{82A6462C-7922-4FBF-884C-725C6D507C64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine.Implementation", "Core.Implementation\Engine.Implementation.csproj", "{BA498887-F6A0-436E-AE3B-DBA482EFFC98}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine.Implementation", "Engine.Implementation\Engine.Implementation.csproj", "{BA498887-F6A0-436E-AE3B-DBA482EFFC98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

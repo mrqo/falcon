@@ -22,8 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Core.Implementation\Engine.Implementation.csproj" />
-    <ProjectReference Include="..\Core\Engine.csproj" />
+    <ProjectReference Include="..\Engine.Implementation\Engine.Implementation.csproj" />
+    <ProjectReference Include="..\Engine\Engine.csproj" />
     <ProjectReference Include="..\Game\Game.csproj" />
   </ItemGroup>
 
