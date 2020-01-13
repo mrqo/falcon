@@ -54,7 +54,10 @@ namespace Game.Components
                 return;
             }
 
-            CurTime += Dt;
+            if (_state == State.InAir)
+            {
+                CurTime += Dt;
+            }
 
             if (CurTime > FloatingTime)
             {
