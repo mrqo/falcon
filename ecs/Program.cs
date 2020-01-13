@@ -5,6 +5,8 @@ using Engine.EntityComponentModel;
 using Engine.Implementation.EntityComponentModel;
 using Engine.Execution;
 using Game;
+using Editor.Views;
+using Editor.Controllers;
 using ImGuiNET;
 using Veldrid;
 using Veldrid.Sdl2;
@@ -26,6 +28,9 @@ namespace ImGuiNET
 
         private static ImGuiController _controller;
 
+        private static EntitiesView _entitiesView;
+        private static EntitiesController _entitiesController;
+
         static void Main(string[] args)
         {
             VeldridStartup.CreateWindowAndGraphicsDevice(
@@ -34,8 +39,10 @@ namespace ImGuiNET
                 out _window,
                 out _gd);
 
+            var executionTarget = new Game.Game();
+
             var game = new Executor()
-                .SetTarget(new Game.Game())
+                .SetTarget(executionTarget)
                 .SetNotificationHub(new NotificationHub())
                 .SetComponentFactory(new ComponentFactory())
                 .SetComponentResolverFactory(new ComponentResolverFactory())
@@ -44,6 +51,8 @@ namespace ImGuiNET
             _cl = _gd.ResourceFactory.CreateCommandList();
 
             _controller = new ImGuiController(_gd, _gd.MainSwapchain.Framebuffer.OutputDescription, _window.Width, _window.Height);
+            _entitiesView = new EntitiesView();
+            _entitiesController = new EntitiesController(_entitiesView, executionTarget);
 
             while (_window.Exists)
             {
@@ -148,6 +157,8 @@ namespace ImGuiNET
                 }
                 ImGui.TreePop();
             }
+
+            _entitiesView.Render();
         }
     }
 }

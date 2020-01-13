@@ -10,18 +10,23 @@ using Game.Entities;
 
 namespace Game
 {
-    public class Game : IExecutionTarget
+    public class Game 
+        : IExecutionTarget
+        , IEntityProvider
     {
-        protected List<Entity> Entities { get; set; }
+        protected List<Entity> _entities;
+
+        public IEnumerable<Entity> Entities => _entities;
 
         protected INotificationHub NotificationHub { get; private set; }
 
         protected IComponentFactory ComponentFactory { get; private set; }
 
         protected IComponentResolverFactory ComponentResolverFactory { get; private set; }
+        
         public Game()
         {
-            Entities = new List<Entity>();
+            _entities = new List<Entity>();
         }
 
         public void Init(
@@ -38,7 +43,7 @@ namespace Game
         
         public void Update(float dt)
         {
-            foreach (var entity in Entities)
+            foreach (var entity in _entities)
             {
                 entity.Update(dt);
             }
@@ -62,7 +67,7 @@ namespace Game
             var jumpCo = entity.FindComponent<JumpComponent>();
             jumpCo.JumpKey = ConsoleKey.Spacebar;
 
-            Entities.Add(entity);
+            _entities.Add(entity);
         }
     }
 }

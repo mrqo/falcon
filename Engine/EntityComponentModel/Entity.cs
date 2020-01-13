@@ -14,7 +14,7 @@ namespace Engine.EntityComponentModel
 
         protected IComponentResolver ComponentResolver { get; private set; }
 
-        public IReadOnlyCollection<Component> Components => throw new NotImplementedException();
+        public IReadOnlyCollection<Component> Components => ComponentResolver.Components;
 
         public virtual void Init(
             INotificationHub notificationHub,

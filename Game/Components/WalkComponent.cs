@@ -9,10 +9,13 @@ namespace Game.Components
 {
     class WalkComponent : Component
     {
+        [CoProperty]
         public int Speed { get; set; }
 
+        [CoProperty]
         public ConsoleKey ForwardKey { get; set; }
 
+        [CoProperty]
         public ConsoleKey BackwardKey { get; set; }
 
         public override void RegisterSubscriptions(INotificationHub hub)

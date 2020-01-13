@@ -17,14 +17,19 @@ namespace Game.Components
             InAir
         }
 
+        [CoProperty]
         public double MaxHeight { get; set; } = 15.0;
 
+        [CoProperty]
         public double FloatingTime { get; set; } = 10.0;
 
+        [CoProperty]
         public ConsoleKey JumpKey { get; set; }
 
+        [CoProperty]
         public double CurHeight { get; private set; } = 0.0;
 
+        [CoProperty]
         public double CurTime { get; private set; } = 0.0;
 
         private State _state = State.Idle;
