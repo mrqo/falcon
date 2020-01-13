@@ -55,11 +55,12 @@ namespace Game
             entity.Init(NotificationHub, ComponentResolverFactory.Create());
             entity.ConfigDefault(ComponentFactory);
             
-            entity.FindComponent<JumpComponent>().JumpKey = ConsoleKey.Spacebar;
-
             var walkCo = entity.FindComponent<WalkComponent>();
             walkCo.ForwardKey = ConsoleKey.W;
             walkCo.BackwardKey = ConsoleKey.S;
+
+            var jumpCo = entity.FindComponent<JumpComponent>();
+            jumpCo.JumpKey = ConsoleKey.Spacebar;
 
             Entities.Add(entity);
         }
