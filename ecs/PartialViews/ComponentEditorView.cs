@@ -13,16 +13,25 @@ namespace Editor.PartialViews
 
         public OnPropertyChanged OnPropertyChangedHandler { get; set; }
 
+        public string ComponentName { get; set; }
+
         public List<EditorProperty> Properties { get; set; } = new List<EditorProperty>();
 
         public override void Render()
         {
+            ImGui.Text(ComponentName);
             for (int i = 0; i < Properties.Count; i++)
             {
                 if (Properties[i].PropertyType == typeof(double))
                 {
                     double a = (double)Properties[i].Value;
                     ImGui.InputDouble(Properties[i].Name, ref a, 0.01);
+                }
+
+                if (Properties[i].PropertyType == typeof(int))
+                {
+                    int a = (int) Properties[i].Value;
+                    ImGui.InputInt(Properties[i].Name, ref a, 1);
                 }
             }
         }

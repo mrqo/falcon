@@ -13,7 +13,7 @@ namespace Editor.Controllers
 
         protected IEntityProvider _entityProvider;
 
-        protected ComponentEditorController _compEditController;
+        protected EntityEditorController _entityEditorController;
 
         public EntitiesController(EntitiesView view, IEntityProvider entityProvider)
         {
@@ -27,8 +27,11 @@ namespace Editor.Controllers
             };
 
             _entityProvider = entityProvider;
-            _compEditController = new ComponentEditorController(view.CompEditView);
-            _compEditController.Init(entityProvider.Entities.FirstOrDefault().Components.FirstOrDefault());
+            _entityEditorController = new EntityEditorController(view.EntityEditorView);
+            _entityEditorController.CreateComponentEditorControllerHandler =
+                view => new ComponentEditorController(view);
+
+            _entityEditorController.Init(entityProvider.Entities.FirstOrDefault());
         }
 
         protected void OnEntityCreatePressed()

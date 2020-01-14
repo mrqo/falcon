@@ -21,9 +21,7 @@ namespace Editor.Views
 
         public OnCreate OnCreateEventHandler { get; set; }
 
-        public ComponentEditorView CompEditView = new ComponentEditorView();
-
-        protected ComponentEditorController _compEditController;
+        public EntityEditorView EntityEditorView = new EntityEditorView();
 
         public override void Render()
         {
@@ -34,9 +32,7 @@ namespace Editor.Views
                 OnCreateEventHandler?.Invoke();
             }
 
-            ImGui.Text("Components preview");
-
-            CompEditView.Render();
+            EntityEditorView.Render();
 
             ImGui.End();
         }

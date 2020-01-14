@@ -19,6 +19,7 @@ namespace Editor.Controllers
 
         public void Init(Component component)
         {
+            _editorView.ComponentName = component.GetType().Name;
             _editorView.Properties.Clear();
 
             var compType = component.GetType();
