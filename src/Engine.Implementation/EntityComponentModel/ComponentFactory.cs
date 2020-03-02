@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Engine.Communication;
-using Engine.EntityComponentModel;
+using Falcon.Engine.Communication;
+using Falcon.Engine.EntityComponentModel;
 
-namespace Engine.Implementation.EntityComponentModel
+namespace Falcon.Engine.Implementation.EntityComponentModel
 {
     public class ComponentFactory : IComponentFactory
     {

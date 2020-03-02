@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Engine.UI;
+using Falcon.Engine.UI;
 
-namespace Editor.PartialViews
+namespace Falcon.Editor.PartialViews
 {
     public class EntityEditorView : View
     {

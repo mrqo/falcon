@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Editor.Models;
-using Engine.UI;
+using Falcon.Editor.Models;
+using Falcon.Engine.UI;
 using ImGuiNET;
 
-namespace Editor.PartialViews
+namespace Falcon.Editor.PartialViews
 {
     public class ComponentEditorView : View
     {

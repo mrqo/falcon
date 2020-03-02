@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Numerics;
-using Engine;
-using Engine.EntityComponentModel;
-using Engine.Implementation.EntityComponentModel;
-using Engine.Execution;
-using Game;
-using Editor.Views;
-using Editor.Controllers;
+using Falcon.Engine;
+using Falcon.Engine.EntityComponentModel;
+using Falcon.Engine.Implementation.EntityComponentModel;
+using Falcon.Engine.Execution;
+using Falcon.Game;
+using Falcon.Editor.Views;
+using Falcon.Editor.Controllers;
+using Falcon.Engine.Implementation.Networking;
 using ImGuiNET;
 using Veldrid;
 using Veldrid.Sdl2;
@@ -39,13 +40,14 @@ namespace ImGuiNET
                 out _window,
                 out _gd);
 
-            var executionTarget = new Game.Game();
+            var executionTarget = new Falcon.Game.Game();
 
             var game = new Executor()
                 .SetTarget(executionTarget)
                 .SetNotificationHub(new NotificationHub())
                 .SetComponentFactory(new ComponentFactory())
                 .SetComponentResolverFactory(new ComponentResolverFactory())
+                .SetStateManager(new StateManager())
                 .Init();
 
             _cl = _gd.ResourceFactory.CreateCommandList();

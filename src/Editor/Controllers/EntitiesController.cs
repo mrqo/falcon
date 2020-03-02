@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Editor.Views;
-using Engine.EntityComponentModel;
+using Falcon.Editor.Views;
+using Falcon.Engine.EntityComponentModel;
 
-namespace Editor.Controllers
+namespace Falcon.Editor.Controllers
 {
     public class EntitiesController
     {

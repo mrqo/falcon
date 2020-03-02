@@ -4,6 +4,7 @@ using System.Data;
 using System.Text;
 using Falcon.Engine.Communication;
 using Falcon.Engine.EntityComponentModel;
+using Falcon.Engine.Networking;
 
 namespace Falcon.Engine.Execution
 {
@@ -12,7 +13,8 @@ namespace Falcon.Engine.Execution
         void Init(
             INotificationHub notificationHub, 
             IComponentFactory componentFactory,
-            IComponentResolverFactory componentResolverFactory);
+            IComponentResolverFactory componentResolverFactory,
+            IStateManager stateManager);
 
         void Update(float dt);
 

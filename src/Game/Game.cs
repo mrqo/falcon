@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Engine;
-using Engine.Communication;
-using Engine.EntityComponentModel;
-using Engine.Execution;
-using Game.Components;
-using Game.Entities;
+using System.Threading.Tasks;
+using Falcon.Engine;
+using Falcon.Engine.Communication;
+using Falcon.Engine.EntityComponentModel;
+using Falcon.Engine.Execution;
+using Falcon.Engine.Networking;
+using Falcon.Game.Components;
+using Falcon.Game.Entities;
 
-namespace Game
+namespace Falcon.Game
 {
     public class Game 
         : IExecutionTarget
@@ -23,6 +25,8 @@ namespace Game
         protected IComponentFactory ComponentFactory { get; private set; }
 
         protected IComponentResolverFactory ComponentResolverFactory { get; private set; }
+
+        protected IStateManager StateManager { get; private set; }
         
         public Game()
         {
@@ -32,11 +36,13 @@ namespace Game
         public void Init(
             INotificationHub notificationHub, 
             IComponentFactory componentFactory,
-            IComponentResolverFactory componentResolverFactory)
+            IComponentResolverFactory componentResolverFactory,
+            IStateManager stateManager)
         {
             NotificationHub = notificationHub;
             ComponentFactory = componentFactory;
             ComponentResolverFactory = componentResolverFactory;
+            StateManager = stateManager;
 
             CreateEntities();
         }
@@ -68,6 +74,12 @@ namespace Game
             jumpCo.JumpKey = ConsoleKey.Spacebar;
 
             _entities.Add(entity);
+
+            Task.Run(async () =>
+            {
+                var msg = await StateManager.Update(entity);
+                Console.WriteLine(msg);
+            });
         }
     }
 }

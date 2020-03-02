@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Falcon.Engine.Communication;
 using Falcon.Engine.EntityComponentModel;
+using Falcon.Engine.Networking;
 
 namespace Falcon.Engine.Execution
 {
@@ -15,6 +16,8 @@ namespace Falcon.Engine.Execution
         public IComponentFactory ComponentFactory { get; private set; }
 
         public IComponentResolverFactory ComponentResolverFactory { get; private set; }
+
+        public IStateManager StateManager { get; private set; }
 
         public IExecutionTarget Target { get; private set; }
 
@@ -53,6 +56,12 @@ namespace Falcon.Engine.Execution
             return this;
         }
 
+        public Executor SetStateManager(IStateManager stateManager)
+        {
+            StateManager = stateManager;
+            return this;
+        }
+
         public Executor Init()
         {
             ComponentFactory.Init(NotificationHub);
@@ -60,7 +69,8 @@ namespace Falcon.Engine.Execution
             Target.Init(
                 NotificationHub, 
                 ComponentFactory,
-                ComponentResolverFactory);
+                ComponentResolverFactory,
+                StateManager);
 
             return this;
         }

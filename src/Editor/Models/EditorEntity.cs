@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Editor.Models
+namespace Falcon.Editor.Models
 {
     public class EditorEntity
     {

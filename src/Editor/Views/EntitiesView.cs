@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Editor.Controllers;
-using Editor.PartialViews;
-using Engine.UI;
+using Falcon.Editor.Controllers;
+using Falcon.Editor.PartialViews;
+using Falcon.Engine.UI;
 using ImGuiNET;
 
-namespace Editor.Views
+namespace Falcon.Editor.Views
 {
     public class EntitiesView : View
     {

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Editor.Models;
-using Editor.PartialViews;
-using Engine.EntityComponentModel;
+using Falcon.Editor.Models;
+using Falcon.Editor.PartialViews;
+using Falcon.Engine.EntityComponentModel;
 
-namespace Editor.Controllers
+namespace Falcon.Editor.Controllers
 {
     public class EntityEditorController
     {
