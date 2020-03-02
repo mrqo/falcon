@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Editor", "ecs\Editor.csproj", "{ADEAB544-1BD0-4914-B321-43F91C2313AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Editor", "Editor\Editor.csproj", "{ADEAB544-1BD0-4914-B321-43F91C2313AE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Engine", "Engine\Engine.csproj", "{B6F06CC8-106B-4BE4-9E92-CDAEB9D777AC}"
 EndProject
@@ -21,12 +21,12 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{ADEAB544-1BD0-4914-B321-43F91C2313AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ADEAB544-1BD0-4914-B321-43F91C2313AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ADEAB544-1BD0-4914-B321-43F91C2313AE}.Debug|x64.ActiveCfg = Debug|x64
-		{ADEAB544-1BD0-4914-B321-43F91C2313AE}.Debug|x64.Build.0 = Debug|x64
+		{ADEAB544-1BD0-4914-B321-43F91C2313AE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{ADEAB544-1BD0-4914-B321-43F91C2313AE}.Debug|x64.Build.0 = Debug|Any CPU
 		{ADEAB544-1BD0-4914-B321-43F91C2313AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADEAB544-1BD0-4914-B321-43F91C2313AE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ADEAB544-1BD0-4914-B321-43F91C2313AE}.Release|x64.ActiveCfg = Release|x64
-		{ADEAB544-1BD0-4914-B321-43F91C2313AE}.Release|x64.Build.0 = Release|x64
+		{ADEAB544-1BD0-4914-B321-43F91C2313AE}.Release|x64.ActiveCfg = Release|Any CPU
+		{ADEAB544-1BD0-4914-B321-43F91C2313AE}.Release|x64.Build.0 = Release|Any CPU
 		{B6F06CC8-106B-4BE4-9E92-CDAEB9D777AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B6F06CC8-106B-4BE4-9E92-CDAEB9D777AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6F06CC8-106B-4BE4-9E92-CDAEB9D777AC}.Debug|x64.ActiveCfg = Debug|Any CPU

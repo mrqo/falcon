@@ -63,7 +63,8 @@ namespace ImGuiNET
                 }
                 _controller.Update(1f / 60f, snapshot);
 
-                SubmitUi();
+                //SubmitUi();
+                _entitiesView.Render();
                 game.Step(1f / 60f);
 
                 _cl.Begin();
@@ -157,8 +158,6 @@ namespace ImGuiNET
                 }
                 ImGui.TreePop();
             }
-
-            _entitiesView.Render();
         }
     }
 }
