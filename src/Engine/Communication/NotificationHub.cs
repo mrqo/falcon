@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Engine.Communication;
+using Falcon.Engine.Communication;
 
-namespace Engine
+namespace Falcon.Engine
 {
     public class NotificationHub : INotificationHub
     {

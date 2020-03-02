@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Engine.Rendering
+namespace Falcon.Engine.Rendering
 {
     public interface IRenderer
     {

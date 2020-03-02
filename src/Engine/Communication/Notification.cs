@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Engine.Communication
+namespace Falcon.Engine.Communication
 {
     public delegate void Notification(object msg, object sender);
 }

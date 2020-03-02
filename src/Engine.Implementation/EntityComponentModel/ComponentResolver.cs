@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
-using Engine.EntityComponentModel;
+using Falcon.Engine.EntityComponentModel;
 
-namespace Engine.Implementation.EntityComponentModel
+namespace Falcon.Engine.Implementation.EntityComponentModel
 {
     public class ComponentResolver : IComponentResolver
     {

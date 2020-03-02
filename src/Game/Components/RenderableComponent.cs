@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Engine;
-using Engine.EntityComponentModel;
+using Falcon.Engine;
+using Falcon.Engine.EntityComponentModel;
 
-namespace Game.Components
+namespace Falcon.Game.Components
 {
     class RenderableComponent : Component
     {

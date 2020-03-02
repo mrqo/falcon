@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using Engine;
 using Engine.Communication;
-using Game.Components;
 using Engine.EntityComponentModel;
+using Falcon.Game.Components;
 
-namespace Game.Entities
+namespace Falcon.Game.Entities
 {
     class Player : Entity
     {

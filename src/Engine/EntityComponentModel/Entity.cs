@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Engine.Communication;
+using Falcon.Engine.Communication;
 
-namespace Engine.EntityComponentModel
+namespace Falcon.Engine.EntityComponentModel
 {
     public abstract class Entity 
         : IComponentResolver

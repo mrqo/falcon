@@ -7,7 +7,7 @@ using Engine;
 using Engine.Communication;
 using Engine.EntityComponentModel;
 
-namespace Game.Components
+namespace Falcon.Game.Components
 {
     class JumpComponent : Component
     {

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
-using Engine.Communication;
+using Falcon.Engine.Communication;
 
-namespace Engine.EntityComponentModel
+namespace Falcon.Engine.EntityComponentModel
 {
     public abstract class Component 
         : IMessageBroadcaster
