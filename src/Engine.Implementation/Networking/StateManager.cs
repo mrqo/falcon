@@ -13,7 +13,7 @@ namespace Falcon.Engine.Implementation.Networking
 {
     public class StateManager : IStateManager
     {
-        private Greeter.GreeterClient _greeterClient;
+        private Session.SessionClient _sessionClient;
 
         public StateManager()
         {
@@ -28,13 +28,24 @@ namespace Falcon.Engine.Implementation.Networking
                 LoggerFactory = loggerFactory
             });
 
-            _greeterClient = new Greeter.GreeterClient(channel);
+            _sessionClient = new Session.SessionClient(channel);
         }
 
         public async Task<object> Update(Entity entity)
         {
-            var reply = await _greeterClient.SayHelloAsync(new HelloRequest {Name = "Client"});
-            return reply.Message;
+            var createSessionReply = _sessionClient.CreateSession(new CreateSessionRequest());
+            if (createSessionReply.SessionId > 0)
+            {
+                var con = _sessionClient.Connect(new ConnectRequest
+                {
+                    ClientId = 1,
+                    SessionId = createSessionReply.SessionId
+                });
+
+                return con.Connected;
+            }
+
+            return null;
         }
     }
 }

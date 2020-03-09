@@ -31,7 +31,7 @@ namespace Falcon.Server
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<GreeterService>();
+                endpoints.MapGrpcService<SessionService>();
 
                 endpoints.MapGet("/", async context =>
                 {

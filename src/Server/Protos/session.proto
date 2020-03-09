@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+option csharp_namespace = "Falcon.Server";
+
+service Session {
+    rpc CreateSession(CreateSessionRequest) returns (CreateSessionReply);
+
+    rpc Connect(ConnectRequest) returns (ConnectReply);
+
+    rpc Disconnect(DisconnectRequest) returns (DisconnectReply);
+
+    rpc IsConnected(ConnectRequest) returns (stream ConnectReply);
+
+    rpc ListClients(ConnectRequest) returns (ListClientsReply);
+}
+
+message CreateSessionRequest {
+}
+
+message CreateSessionReply {
+    int32 sessionId = 1;
+}
+
+message ConnectRequest {
+    int32 clientId = 1;
+    int32 sessionId = 2;
+}
+
+message ConnectReply {
+    int32 sessionId = 1;
+    bool connected = 2;
+    string msg = 3;
+}
+
+message DisconnectRequest {
+    int32 clientId = 1;
+    int32 sessionId = 2;
+}
+
+message DisconnectReply {
+    int32 sessionId = 1;
+    bool disconnected = 2;
+    string msg = 3;
+}
+
+message ListClientsReply {
+    repeated int32 clientId = 1;
+}
