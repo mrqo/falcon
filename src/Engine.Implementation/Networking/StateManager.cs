@@ -6,7 +6,8 @@ using Grpc.Net.Client;
 using Falcon.Engine.EntityComponentModel;
 using Falcon.Engine.Networking;
 using Falcon.Server;
-
+using Grpc.Core;
+using Microsoft.Extensions.Logging;
 
 namespace Falcon.Engine.Implementation.Networking
 {
@@ -16,9 +17,17 @@ namespace Falcon.Engine.Implementation.Networking
 
         public StateManager()
         {
-            AppContext.SetSwitch(
-                "System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
-            using var channel = GrpcChannel.ForAddress("https://localhost:5001");
+            var loggerFactory = LoggerFactory.Create(logging =>
+            {
+                logging.AddConsole();
+                logging.SetMinimumLevel(LogLevel.Debug);
+            });
+
+            var channel = GrpcChannel.ForAddress("https://localhost:5001/", new GrpcChannelOptions
+            {
+                LoggerFactory = loggerFactory
+            });
+
             _greeterClient = new Greeter.GreeterClient(channel);
         }
 
