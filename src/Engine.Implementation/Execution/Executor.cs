@@ -18,21 +18,7 @@ namespace Falcon.Engine.Implementation.Execution
         public Executor(IKernel kernel)
         {
             this.Kernel = kernel;
-        }
-
-        public IExecutor Init()
-        {
-            Kernel.Get<IComponentFactory>()
-                .Init(Kernel.Get<INotificationHub>());
-
             Target = Kernel.Get<IExecutionTarget>();
-            Target.Init(
-                Kernel.Get<INotificationHub>(),
-                Kernel.Get<IComponentFactory>(),
-                Kernel.Get<IComponentResolverFactory>(),
-                Kernel.Get<IStateManager>());
-
-            return this;
         }
 
         public void Run()

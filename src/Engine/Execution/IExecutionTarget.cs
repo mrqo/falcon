@@ -10,12 +10,6 @@ namespace Falcon.Engine.Execution
 {
     public interface IExecutionTarget
     {
-        void Init(
-            INotificationHub notificationHub, 
-            IComponentFactory componentFactory,
-            IComponentResolverFactory componentResolverFactory,
-            IStateManager stateManager);
-
         void Update(float dt);
 
         void Perform();

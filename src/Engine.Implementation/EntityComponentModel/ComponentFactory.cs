@@ -10,11 +10,11 @@ namespace Falcon.Engine.Implementation.EntityComponentModel
     {
         protected INotificationHub NotificationHub { get; private set; }
 
-        public virtual void Init(INotificationHub notificationHub)
+        public ComponentFactory(INotificationHub notificationHub)
         {
             NotificationHub = notificationHub;
         }
-
+        
         public Component Create(string componentName)
         {
             var type = Type.GetType(componentName);

@@ -15,20 +15,9 @@ namespace Falcon.Engine.Implementation.Networking
     {
         private Session.SessionClient _sessionClient;
 
-        public StateManager()
+        public StateManager(IServerStub server)
         {
-            var loggerFactory = LoggerFactory.Create(logging =>
-            {
-                logging.AddConsole();
-                logging.SetMinimumLevel(LogLevel.Debug);
-            });
-
-            var channel = GrpcChannel.ForAddress("https://localhost:5001/", new GrpcChannelOptions
-            {
-                LoggerFactory = loggerFactory
-            });
-
-            _sessionClient = new Session.SessionClient(channel);
+            _sessionClient = server.SessionClient;
         }
 
         public async Task<object> Update(Entity entity)

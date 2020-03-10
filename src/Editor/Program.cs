@@ -48,7 +48,7 @@ namespace ImGuiNET
 
             ConfigureDependencies(kernel);
 
-            var executionEnv = new Executor(kernel).Init();
+            var executionEnv = new Executor(kernel);
 
             _cl = _gd.ResourceFactory.CreateCommandList();
 
@@ -85,6 +85,11 @@ namespace ImGuiNET
 
         private static void ConfigureDependencies(IKernel kernel)
         {
+            kernel
+                .Bind<IServerStub>()
+                .To<ServerStub>()
+                .InSingletonScope();
+
             kernel
                 .Bind<IExecutionTarget>()
                 .To<Falcon.Game.Game>()

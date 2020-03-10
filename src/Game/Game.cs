@@ -16,7 +16,7 @@ namespace Falcon.Game
         : IExecutionTarget
         , IEntityProvider
     {
-        protected List<Entity> _entities;
+        protected List<Entity> _entities = new List<Entity>();
 
         public IEnumerable<Entity> Entities => _entities;
 
@@ -28,13 +28,8 @@ namespace Falcon.Game
 
         protected IStateManager StateManager { get; private set; }
         
-        public Game()
-        {
-            _entities = new List<Entity>();
-        }
-
-        public void Init(
-            INotificationHub notificationHub, 
+        public Game(
+            INotificationHub notificationHub,
             IComponentFactory componentFactory,
             IComponentResolverFactory componentResolverFactory,
             IStateManager stateManager)
@@ -46,7 +41,7 @@ namespace Falcon.Game
 
             CreateEntities();
         }
-        
+
         public void Update(float dt)
         {
             foreach (var entity in _entities)
