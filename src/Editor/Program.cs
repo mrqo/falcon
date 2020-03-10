@@ -7,8 +7,12 @@ using Falcon.Engine.Execution;
 using Falcon.Game;
 using Falcon.Editor.Views;
 using Falcon.Editor.Controllers;
+using Falcon.Engine.Communication;
+using Falcon.Engine.Implementation.Execution;
 using Falcon.Engine.Implementation.Networking;
+using Falcon.Engine.Networking;
 using ImGuiNET;
+using Ninject;
 using Veldrid;
 using Veldrid.Sdl2;
 using Veldrid.StartupUtilities;
@@ -40,21 +44,17 @@ namespace ImGuiNET
                 out _window,
                 out _gd);
 
-            var executionTarget = new Falcon.Game.Game();
+            IKernel kernel = new StandardKernel();
 
-            var game = new Executor()
-                .SetTarget(executionTarget)
-                .SetNotificationHub(new NotificationHub())
-                .SetComponentFactory(new ComponentFactory())
-                .SetComponentResolverFactory(new ComponentResolverFactory())
-                .SetStateManager(new StateManager())
-                .Init();
+            ConfigureDependencies(kernel);
+
+            var executionEnv = new Executor(kernel).Init();
 
             _cl = _gd.ResourceFactory.CreateCommandList();
 
             _controller = new ImGuiController(_gd, _gd.MainSwapchain.Framebuffer.OutputDescription, _window.Width, _window.Height);
             _entitiesView = new EntitiesView();
-            _entitiesController = new EntitiesController(_entitiesView, executionTarget);
+            _entitiesController = new EntitiesController(_entitiesView, kernel.Get<IExecutionTarget>() as IEntityProvider);
 
             while (_window.Exists)
             {
@@ -67,7 +67,7 @@ namespace ImGuiNET
 
                 //SubmitUi();
                 _entitiesView.Render();
-                game.Step(1f / 60f);
+                executionEnv.Step(1f / 60f);
 
                 _cl.Begin();
                 _cl.SetFramebuffer(_gd.MainSwapchain.Framebuffer);
@@ -81,6 +81,33 @@ namespace ImGuiNET
             _controller.Dispose();
             _cl.Dispose();
             _gd.Dispose();
+        }
+
+        private static void ConfigureDependencies(IKernel kernel)
+        {
+            kernel
+                .Bind<IExecutionTarget>()
+                .To<Falcon.Game.Game>()
+                .InSingletonScope();
+
+            kernel
+                .Bind<INotificationHub>()
+                .To<NotificationHub>()
+                .InSingletonScope();
+
+            kernel
+                .Bind<IComponentFactory>()
+                .To<ComponentFactory>()
+                .InSingletonScope();
+
+            kernel
+                .Bind<IComponentResolverFactory>()
+                .To<ComponentResolverFactory>()
+                .InSingletonScope();
+
+            kernel
+                .Bind<IStateManager>()
+                .To<StateManager>();
         }
 
         private static unsafe void SubmitUi()

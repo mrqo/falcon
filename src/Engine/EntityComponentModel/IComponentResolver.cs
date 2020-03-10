@@ -6,7 +6,7 @@ namespace Falcon.Engine.EntityComponentModel
 {
     public interface IComponentResolver
     {
-        void AddComponent(Component component);
+        IComponentResolver With(Component component);
 
         TComponent FindComponent<TComponent>() where TComponent : Component;
 

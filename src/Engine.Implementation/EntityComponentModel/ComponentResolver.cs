@@ -17,9 +17,10 @@ namespace Falcon.Engine.Implementation.EntityComponentModel
             _components = new List<Component>();
         }
 
-        public virtual void AddComponent(Component component)
+        public virtual IComponentResolver With(Component component)
         {
             _components.Add(component);
+            return this;
         }
 
         public virtual TComponent FindComponent<TComponent>() where TComponent : Component

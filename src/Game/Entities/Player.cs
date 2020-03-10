@@ -12,10 +12,10 @@ namespace Falcon.Game.Entities
     {
         public void ConfigDefault(IComponentFactory compFactory)
         {
-            AddComponent(compFactory.Create<JumpComponent>());
-            AddComponent(compFactory.Create<WalkComponent>());
-            AddComponent(compFactory.Create<ControllerComponent>());
-            AddComponent(compFactory.Create<RenderableComponent>());
+            this.With(compFactory.Create<JumpComponent>())
+                .With(compFactory.Create<WalkComponent>())
+                .With(compFactory.Create<ControllerComponent>())
+                .With(compFactory.Create<RenderableComponent>());
         }
     }
 }

@@ -24,10 +24,12 @@ namespace Falcon.Engine.EntityComponentModel
             ComponentResolver = componentResolver;
         }
 
-        public void AddComponent(Component component)
+        public IComponentResolver With(Component component)
         {
             component.Entity = this;
-            ComponentResolver.AddComponent(component);
+            ComponentResolver.With(component);
+
+            return this;
         }
 
         public TComponent FindComponent<TComponent>() where TComponent : Component
