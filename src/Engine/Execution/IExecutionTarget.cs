@@ -10,6 +10,10 @@ namespace Falcon.Engine.Execution
 {
     public interface IExecutionTarget
     {
+        void RegisterTypes();
+
+        void Start();
+
         void Update(float dt);
 
         void Perform();

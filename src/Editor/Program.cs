@@ -48,7 +48,7 @@ namespace ImGuiNET
 
             ConfigureDependencies(kernel);
 
-            var executionEnv = new Executor(kernel);
+            var executionEnv = kernel.Get<IExecutor>();
 
             _cl = _gd.ResourceFactory.CreateCommandList();
 
@@ -91,6 +91,11 @@ namespace ImGuiNET
                 .InSingletonScope();
 
             kernel
+                .Bind<IExecutor>()
+                .To<Executor>()
+                .InSingletonScope();
+
+            kernel
                 .Bind<IExecutionTarget>()
                 .To<Falcon.Game.Game>()
                 .InSingletonScope();
@@ -102,17 +107,20 @@ namespace ImGuiNET
 
             kernel
                 .Bind<IComponentFactory>()
-                .To<ComponentFactory>()
-                .InSingletonScope();
+                .To<ComponentFactory>();
 
             kernel
-                .Bind<IComponentResolverFactory>()
-                .To<ComponentResolverFactory>()
-                .InSingletonScope();
+                .Bind<IComponentResolver>()
+                .To<ComponentResolver>();
 
             kernel
                 .Bind<IStateManager>()
                 .To<StateManager>();
+
+            kernel
+                .Bind<IEntityFactory>()
+                .To<EntityFactory>()
+                .InSingletonScope();
         }
 
         private static unsafe void SubmitUi()

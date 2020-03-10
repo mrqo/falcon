@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Falcon.Engine.EntityComponentModel
 {
-    public interface IComponentResolverFactory
+    public interface IEntityFactory
     {
-        IComponentResolver Create();
+        TEntity Create<TEntity>() where TEntity : Entity;
     }
 }

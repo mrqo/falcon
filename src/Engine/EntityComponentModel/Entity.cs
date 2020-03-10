@@ -16,7 +16,7 @@ namespace Falcon.Engine.EntityComponentModel
 
         public IReadOnlyCollection<Component> Components => ComponentResolver.Components;
 
-        public virtual void Init(
+        public Entity(
             INotificationHub notificationHub,
             IComponentResolver componentResolver)
         {

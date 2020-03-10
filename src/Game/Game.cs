@@ -9,6 +9,7 @@ using Falcon.Engine.Execution;
 using Falcon.Engine.Networking;
 using Falcon.Game.Components;
 using Falcon.Game.Entities;
+using Ninject;
 
 namespace Falcon.Game
 {
@@ -20,25 +21,26 @@ namespace Falcon.Game
 
         public IEnumerable<Entity> Entities => _entities;
 
-        protected INotificationHub NotificationHub { get; private set; }
-
-        protected IComponentFactory ComponentFactory { get; private set; }
-
-        protected IComponentResolverFactory ComponentResolverFactory { get; private set; }
-
-        protected IStateManager StateManager { get; private set; }
+        protected IStateManager StateManager { get; }
         
-        public Game(
-            INotificationHub notificationHub,
-            IComponentFactory componentFactory,
-            IComponentResolverFactory componentResolverFactory,
-            IStateManager stateManager)
-        {
-            NotificationHub = notificationHub;
-            ComponentFactory = componentFactory;
-            ComponentResolverFactory = componentResolverFactory;
-            StateManager = stateManager;
+        protected IEntityFactory EntityFactory { get; }
 
+        protected IKernel Kernel { get; }
+
+        public Game(
+            IStateManager stateManager, 
+            IEntityFactory entityFactory,
+            IKernel kernel)
+        {
+            StateManager = stateManager;
+            EntityFactory = entityFactory;
+            Kernel = kernel;
+
+            
+        }
+
+        public void Start()
+        {
             CreateEntities();
         }
 
@@ -55,12 +57,15 @@ namespace Falcon.Game
             // #TODO: Render logic here
         }
 
+        public void RegisterTypes()
+        {
+            Kernel.Bind<Player>().To<Player>();
+        }
+
         protected void CreateEntities()
         {
-            var entity = new Player();
-            entity.Init(NotificationHub, ComponentResolverFactory.Create());
-            entity.ConfigDefault(ComponentFactory);
-            
+            var entity = EntityFactory.Create<Player>();
+
             var walkCo = entity.FindComponent<WalkComponent>();
             walkCo.ForwardKey = ConsoleKey.W;
             walkCo.BackwardKey = ConsoleKey.S;

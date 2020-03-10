@@ -5,6 +5,7 @@ using Falcon.Engine.Communication;
 using Falcon.Engine.EntityComponentModel;
 using Falcon.Engine.Execution;
 using Falcon.Engine.Networking;
+using Falcon.Engine.World;
 using Ninject;
 
 namespace Falcon.Engine.Implementation.Execution
@@ -15,10 +16,29 @@ namespace Falcon.Engine.Implementation.Execution
 
         public IKernel Kernel { get; private set; }
 
-        public Executor(IKernel kernel)
+        public Executor(IKernel kernel, IExecutionTarget target)
         {
-            this.Kernel = kernel;
-            Target = Kernel.Get<IExecutionTarget>();
+            Kernel = kernel;
+            Target = target;
+
+            RegisterDefaultTypes();
+            RegisterExecutionTargetTypes();
+            StartExecutionTarget();
+        }
+
+        protected void RegisterDefaultTypes()
+        {
+            Kernel.Bind<Level>().To<Level>();
+        }
+
+        protected void RegisterExecutionTargetTypes()
+        {
+            Target.RegisterTypes();
+        }
+
+        protected void StartExecutionTarget()
+        {
+            Target.Start();
         }
 
         public void Run()
