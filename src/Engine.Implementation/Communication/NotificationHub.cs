@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Falcon.Engine.Communication;
 
-namespace Falcon.Engine
+namespace Falcon.Engine.Implementation.Communication
 {
     public class NotificationHub : INotificationHub
     {
