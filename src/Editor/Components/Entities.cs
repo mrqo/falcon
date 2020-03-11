@@ -5,20 +5,21 @@ using System.Text;
 using Falcon.Engine.EntityComponentModel;
 using Falcon.Engine.UI;
 using ImGuiNET;
+using Component = Falcon.Engine.UI.Component;
 
-namespace Falcon.Editor.Views
+namespace Falcon.Editor.Components
 {
-    public class EntitiesView : View
+    public class Entities : Component
     {
-        private EntityEditView entityEditView = new EntityEditView();
+        private EntityEdit _entityEditComponent = new EntityEdit();
 
         private IEntityProvider entityProvider;
 
         protected int selectedEntityId;
 
-        public static EntitiesView Create(IEntityProvider entityProvider)
+        public static Entities Create(IEntityProvider entityProvider)
         {
-            var view = new EntitiesView();
+            var view = new Entities();
             view.Init(entityProvider);
             return view;
         }
@@ -26,7 +27,7 @@ namespace Falcon.Editor.Views
         public void Init(IEntityProvider entityProvider)
         {
             this.entityProvider = entityProvider;
-            this.entityEditView.Init(entityProvider.Entities.FirstOrDefault());
+            this._entityEditComponent.Init(entityProvider.Entities.FirstOrDefault());
         }
 
         public override void Render()
@@ -47,7 +48,7 @@ namespace Falcon.Editor.Views
                 OnEditPressed();
             }
 
-            entityEditView.Render();
+            _entityEditComponent.Render();
 
             ImGui.End();
         }
@@ -55,7 +56,7 @@ namespace Falcon.Editor.Views
         private void OnEditPressed()
         {
             Console.WriteLine($"Edit entity {selectedEntityId}");
-            this.entityEditView.Init(entityProvider.Entities.ToArray()[selectedEntityId]);
+            this._entityEditComponent.Init(entityProvider.Entities.ToArray()[selectedEntityId]);
         }
     }
 }

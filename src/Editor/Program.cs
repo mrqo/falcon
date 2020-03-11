@@ -5,7 +5,7 @@ using Falcon.Engine.EntityComponentModel;
 using Falcon.Engine.Implementation.EntityComponentModel;
 using Falcon.Engine.Execution;
 using Falcon.Game;
-using Falcon.Editor.Views;
+using Falcon.Editor.Components;
 using Falcon.Engine.Communication;
 using Falcon.Engine.Implementation.Communication;
 using Falcon.Engine.Implementation.Execution;
@@ -33,7 +33,7 @@ namespace ImGuiNET
 
         private static ImGuiController _controller;
 
-        private static EntitiesView _entitiesView;
+        private static Entities _entitiesComponent;
 
         static void Main(string[] args)
         {
@@ -52,7 +52,7 @@ namespace ImGuiNET
             _cl = _gd.ResourceFactory.CreateCommandList();
 
             _controller = new ImGuiController(_gd, _gd.MainSwapchain.Framebuffer.OutputDescription, _window.Width, _window.Height);
-            _entitiesView = EntitiesView.Create(kernel.Get<IExecutionTarget>() as IEntityProvider);
+            _entitiesComponent = Entities.Create(kernel.Get<IExecutionTarget>() as IEntityProvider);
 
             while (_window.Exists)
             {
@@ -64,7 +64,7 @@ namespace ImGuiNET
                 _controller.Update(1f / 60f, snapshot);
 
                 //SubmitUi();
-                _entitiesView.Render();
+                _entitiesComponent.Render();
                 executionEnv.Step(1f / 60f);
 
                 _cl.Begin();

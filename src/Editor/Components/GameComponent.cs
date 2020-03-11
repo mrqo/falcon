@@ -6,44 +6,45 @@ using System.Text;
 using Falcon.Editor.Models;
 using Falcon.Engine.EntityComponentModel;
 using Falcon.Engine.UI;
+using Component = Falcon.Engine.UI.Component;
 
-namespace Falcon.Editor.Views
+namespace Falcon.Editor.Components
 {
-    public class ComponentView : View
+    public class GameComponent : Component
     {
-        private PropertiesView propsView = new PropertiesView();
+        private Properties _propsComponent = new Properties();
 
-        private Component component;
+        private Engine.EntityComponentModel.Component gameComponent;
 
-        public static ComponentView Create(Component component)
+        public static GameComponent Create(Engine.EntityComponentModel.Component component)
         {
-            var view = new ComponentView();
+            var view = new GameComponent();
             view.Init(component);
             return view;
         }
 
-        public void Init(Component component)
+        public void Init(Engine.EntityComponentModel.Component component)
         {
-            this.component = component;
+            this.gameComponent = component;
             InitPropsView();
         }
 
         private void InitPropsView()
         {
-            if (component == null)
+            if (gameComponent == null)
             {
                 return;
             }
 
-            propsView.GroupName = component.GetType().Name;
-            propsView.Properties = component
+            _propsComponent.GroupName = gameComponent.GetType().Name;
+            _propsComponent.Props = gameComponent
                 .GetType()
                 .GetProperties()
                 .Where(prop => prop.GetCustomAttribute(typeof(CoProperty)) != null)
                 .Select(prop => new EditorProperty
                 {
                     Name = prop.Name,
-                    Value = prop.GetValue(component),
+                    Value = prop.GetValue(gameComponent),
                     PropertyType = prop.PropertyType
                 })
                 .ToList();
@@ -51,7 +52,7 @@ namespace Falcon.Editor.Views
 
         public override void Render()
         {
-            propsView.Render();
+            _propsComponent.Render();
         }
     }
 }

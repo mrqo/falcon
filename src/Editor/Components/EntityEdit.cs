@@ -5,17 +5,18 @@ using System.Text;
 using Falcon.Editor.Models;
 using Falcon.Engine.EntityComponentModel;
 using Falcon.Engine.UI;
+using Component = Falcon.Engine.UI.Component;
 
-namespace Falcon.Editor.Views
+namespace Falcon.Editor.Components
 {
-    public class EntityEditView : View
+    public class EntityEdit : Component
     {
-        public List<ComponentView> ComponentViews { get; private set; } = new List<ComponentView>();
+        public List<GameComponent> ComponentViews { get; private set; } = new List<GameComponent>();
 
         public void Init(Entity entity)
         {
             ComponentViews = entity.Components
-                .Select(ComponentView.Create)
+                .Select(GameComponent.Create)
                 .ToList();
         }
 
