@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using Falcon.Editor.Models;
@@ -20,23 +21,17 @@ namespace Falcon.Editor.Controllers
         public void Init(Component component)
         {
             _editorView.ComponentName = component.GetType().Name;
-            _editorView.Properties.Clear();
-
-            var compType = component.GetType();
-            var properties = compType.GetProperties();
-
-            foreach (var property in properties)
-            {
-                if (property.GetCustomAttribute(typeof(CoProperty)) != null)
+            _editorView.Properties = component
+                .GetType()
+                .GetProperties()
+                .Where(prop => prop.GetCustomAttribute(typeof(CoProperty)) != null)
+                .Select(prop => new EditorProperty
                 {
-                    _editorView.Properties.Add(new EditorProperty
-                    {
-                        Name = property.Name,
-                        Value = property.GetValue(component),
-                        PropertyType = property.PropertyType
-                    });
-                }
-            }
+                    Name = prop.Name,
+                    Value = prop.GetValue(component),
+                    PropertyType = prop.PropertyType
+                })
+                .ToList();
         }
     }
 }
