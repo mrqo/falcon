@@ -5,21 +5,17 @@ using Falcon.Editor.Models;
 using Falcon.Engine.UI;
 using ImGuiNET;
 
-namespace Falcon.Editor.PartialViews
+namespace Falcon.Editor.Views
 {
-    public class ComponentEditorView : View
+    public class PropertiesView : View
     {
-        public delegate void OnPropertyChanged(string propertyName, object newValue);
-
-        public OnPropertyChanged OnPropertyChangedHandler { get; set; }
-
-        public string ComponentName { get; set; }
+        public string GroupName { get; set; }
 
         public List<EditorProperty> Properties { get; set; } = new List<EditorProperty>();
 
         public override void Render()
         {
-            ImGui.Text(ComponentName);
+            ImGui.Text(GroupName);
             for (int i = 0; i < Properties.Count; i++)
             {
                 if (Properties[i].PropertyType == typeof(double))
