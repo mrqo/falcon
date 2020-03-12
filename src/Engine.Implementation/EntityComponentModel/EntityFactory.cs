@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Falcon.Engine.EntityComponentModel;
+using Falcon.Engine.Ecs;
 using Falcon.Engine.World;
 using Ninject;
 

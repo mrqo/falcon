@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Falcon.Engine.Communication;
 
-namespace Falcon.Engine.EntityComponentModel
+namespace Falcon.Engine.Ecs
 {
     public abstract class Entity 
         : IComponentResolver

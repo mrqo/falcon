@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Falcon.Engine.Communication;
 
-namespace Falcon.Engine.EntityComponentModel
+namespace Falcon.Engine.Ecs
 {
     public interface IComponentFactory
     {

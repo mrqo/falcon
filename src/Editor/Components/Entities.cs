@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Falcon.Engine.EntityComponentModel;
+using Falcon.Engine.Ecs;
 using Falcon.Engine.UI;
 using ImGuiNET;
 using Component = Falcon.Engine.UI.Component;

@@ -7,5 +7,9 @@ namespace Falcon.Engine.UI
     public abstract class Component
     {
         public abstract void Render();
+
+        public virtual void Dispose()
+        {
+        }
     }
 }

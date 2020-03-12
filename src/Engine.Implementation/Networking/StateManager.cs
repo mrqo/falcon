@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Grpc.Net.Client;
-using Falcon.Engine.EntityComponentModel;
+using Falcon.Engine.Ecs;
 using Falcon.Engine.Networking;
 using Falcon.Server;
 using Grpc.Core;

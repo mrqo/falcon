@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Falcon.Engine.Communication;
-using Falcon.Engine.EntityComponentModel;
+using Falcon.Engine.Ecs;
 
 namespace Falcon.Engine.Implementation.EntityComponentModel
 {

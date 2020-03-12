@@ -4,7 +4,7 @@ using System.Data;
 using System.Text;
 using Falcon.Engine.Communication;
 
-namespace Falcon.Engine.EntityComponentModel
+namespace Falcon.Engine.Ecs
 {
     public abstract class Component 
         : IMessageBroadcaster

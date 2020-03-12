@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Numerics;
 using Falcon.Engine;
-using Falcon.Engine.EntityComponentModel;
+using Falcon.Engine.Ecs;
 using Falcon.Engine.Implementation.EntityComponentModel;
 using Falcon.Engine.Execution;
 using Falcon.Game;

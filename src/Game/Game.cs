@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Falcon.Engine;
 using Falcon.Engine.Communication;
-using Falcon.Engine.EntityComponentModel;
+using Falcon.Engine.Ecs;
 using Falcon.Engine.Execution;
 using Falcon.Engine.Networking;
 using Falcon.Game.Components;

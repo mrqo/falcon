@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Falcon.Engine;
 using Falcon.Engine.Communication;
-using Falcon.Engine.EntityComponentModel;
+using Falcon.Engine.Ecs;
 using Falcon.Game.Components;
 
 namespace Falcon.Game.Entities
