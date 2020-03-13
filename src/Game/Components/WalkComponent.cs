@@ -7,7 +7,7 @@ using Falcon.Engine.Ecs;
 
 namespace Falcon.Game.Components
 {
-    class WalkComponent : Component
+    public class WalkComponent : Component
     {
         [CoProperty]
         public int Speed { get; set; }

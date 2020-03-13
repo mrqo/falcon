@@ -8,6 +8,8 @@ namespace Falcon.Engine.Ecs
     {
         IComponentResolver With(Component component);
 
+        Component FindComponent(Type t);
+        
         TComponent FindComponent<TComponent>() where TComponent : Component;
 
         IReadOnlyCollection<Component> Components { get; }

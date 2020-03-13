@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Reflection;
 using Falcon.Engine.Ecs;
 
-namespace Falcon.Engine.Implementation.EntityComponentModel
+namespace Falcon.Engine.Implementation.Ecs
 {
     public class ComponentResolver : IComponentResolver
     {
@@ -17,24 +18,16 @@ namespace Falcon.Engine.Implementation.EntityComponentModel
             _components = new List<Component>();
         }
 
-        public virtual IComponentResolver With(Component component)
+        public IComponentResolver With(Component component)
         {
             _components.Add(component);
             return this;
         }
 
-        public virtual TComponent FindComponent<TComponent>() where TComponent : Component
-        {
-            foreach (var comp in _components)
-            {
-                
-                if (comp.GetType() == typeof(TComponent))
-                {
-                    return comp as TComponent;
-                }
-            }
+        public Component FindComponent(Type t) =>
+            _components.FirstOrDefault(comp => comp.GetType() == t);
 
-            return null;
-        }
+        public TComponent FindComponent<TComponent>() where TComponent : Component =>
+            FindComponent(typeof(TComponent)) as TComponent;
     }
 }

@@ -7,7 +7,7 @@ using Falcon.Engine.Ecs;
 
 namespace Falcon.Game.Components
 {
-    class ControllerComponent : Component
+    public class ControllerComponent : Component
     {
         public override void Update()
         {

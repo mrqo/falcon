@@ -6,7 +6,7 @@ using Falcon.Engine.Ecs;
 
 namespace Falcon.Game.Components
 {
-    class RenderableComponent : Component
+    public class RenderableComponent : Component
     {
         public override void Update()
         {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Falcon.Engine.Ecs;
 using Falcon.Engine.UI;
+using Falcon.Game.Components;
 using ImGuiNET;
 using Component = Falcon.Engine.UI.Component;
 
@@ -27,7 +28,15 @@ namespace Falcon.Editor.Components
         public void Init(IEntityProvider entityProvider)
         {
             this.entityProvider = entityProvider;
-            this._entityEditComponent.Init(entityProvider.Entities.FirstOrDefault());
+            
+            var entity = entityProvider
+                .Query()
+                .With<JumpComponent>()
+                .With<WalkComponent>()
+                .Get()
+                .FirstOrDefault();
+            
+            this._entityEditComponent.Init(entity);
         }
 
         public override void Render()

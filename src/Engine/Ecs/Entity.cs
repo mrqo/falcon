@@ -32,10 +32,11 @@ namespace Falcon.Engine.Ecs
             return this;
         }
 
-        public TComponent FindComponent<TComponent>() where TComponent : Component
-        {
-            return ComponentResolver.FindComponent<TComponent>();
-        }
+        public Component FindComponent(Type t) =>
+            ComponentResolver.FindComponent(t);
+
+        public TComponent FindComponent<TComponent>() where TComponent : Component =>
+            ComponentResolver.FindComponent<TComponent>();
 
         public void Update(float dt)
         {
@@ -46,29 +47,18 @@ namespace Falcon.Engine.Ecs
             }
         }
 
-        public void DispatchMsg(object msg, object sender)
-        {
-            foreach (var comp in ComponentResolver.Components)
-            {
-                comp.ReceiveMsg(msg, sender);
-            }
-        }
+        public void DispatchMsg(object msg, object sender) =>
+            ComponentResolver.Components
+                .ToList()
+                .ForEach(comp => comp.ReceiveMsg(msg, sender));
 
-        public void DispatchMsg<TComponent>(object msg, object sender)
-        {
-            var comps = ComponentResolver.Components
+        public void DispatchMsg<TComponent>(object msg, object sender) =>
+            ComponentResolver.Components
                 .Where(comp => comp.GetType() == typeof(TComponent))
-                .ToList();
+                .ToList()
+                .ForEach(comp => comp.ReceiveMsg(msg, sender));
 
-            foreach (var comp in comps)
-            {
-                comp.ReceiveMsg(msg, sender);
-            }
-        }
-
-        public bool DispatchNotification(string topic, object msg, object sender)
-        {
-            return NotificationHub.DispatchNotification(topic, msg, sender);
-        }
+        public bool DispatchNotification(string topic, object msg, object sender) =>
+            NotificationHub.DispatchNotification(topic, msg, sender);
     }
 }

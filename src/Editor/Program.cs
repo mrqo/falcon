@@ -2,7 +2,7 @@
 using System.Numerics;
 using Falcon.Engine;
 using Falcon.Engine.Ecs;
-using Falcon.Engine.Implementation.EntityComponentModel;
+using Falcon.Engine.Implementation.Ecs;
 using Falcon.Engine.Execution;
 using Falcon.Game;
 using Falcon.Editor.Components;
@@ -52,7 +52,7 @@ namespace ImGuiNET
             _cl = _gd.ResourceFactory.CreateCommandList();
 
             _controller = new ImGuiController(_gd, _gd.MainSwapchain.Framebuffer.OutputDescription, _window.Width, _window.Height);
-            _entitiesComponent = Entities.Create(kernel.Get<IExecutionTarget>() as IEntityProvider);
+            _entitiesComponent = Entities.Create(kernel.Get<IEntityProvider>());
 
             while (_window.Exists)
             {
@@ -62,8 +62,7 @@ namespace ImGuiNET
                     break;
                 }
                 _controller.Update(1f / 60f, snapshot);
-
-                //SubmitUi();
+                
                 _entitiesComponent.Render();
                 executionEnv.Step(1f / 60f);
 
@@ -93,6 +92,15 @@ namespace ImGuiNET
                 .To<Executor>()
                 .InSingletonScope();
 
+            kernel
+                .Bind<IEntityProvider>()
+                .To<EntityProvider>()
+                .InSingletonScope();
+
+            kernel
+                .Bind<IEntityQueryBuilder>()
+                .To<EntityQueryBuilder>();
+            
             kernel
                 .Bind<IExecutionTarget>()
                 .To<Falcon.Game.Game>()

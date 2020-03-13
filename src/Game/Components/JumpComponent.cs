@@ -9,7 +9,7 @@ using Falcon.Engine.Ecs;
 
 namespace Falcon.Game.Components
 {
-    class JumpComponent : Component
+    public class JumpComponent : Component
     {
         enum State
         {

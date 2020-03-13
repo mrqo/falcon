@@ -5,7 +5,7 @@ using Falcon.Engine.Ecs;
 using Falcon.Engine.World;
 using Ninject;
 
-namespace Falcon.Engine.Implementation.EntityComponentModel
+namespace Falcon.Engine.Implementation.Ecs
 {
     public class EntityFactory : IEntityFactory
     {

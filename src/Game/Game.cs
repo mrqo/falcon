@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Falcon.Engine;
@@ -13,28 +14,22 @@ using Ninject;
 
 namespace Falcon.Game
 {
-    public class Game 
-        : IExecutionTarget
-        , IEntityProvider
+    public class Game : IExecutionTarget
     {
-        private List<Entity> _entities = new List<Entity>();
-
-        public IEnumerable<Entity> Entities => _entities;
-
-        protected IStateManager StateManager { get; }
+        private readonly IStateManager _stateManager;
         
-        protected IEntityFactory EntityFactory { get; }
+        private readonly IEntityProvider _entityProvider;
 
-        protected IKernel Kernel { get; }
+        private readonly IKernel _kernel;
 
         public Game(
-            IStateManager stateManager, 
-            IEntityFactory entityFactory,
+            IStateManager stateManager,
+            IEntityProvider entityProvider,
             IKernel kernel)
         {
-            StateManager = stateManager;
-            EntityFactory = entityFactory;
-            Kernel = kernel;
+            _stateManager = stateManager;
+            _entityProvider = entityProvider;
+            _kernel = kernel;
         }
 
         public void Start()
@@ -42,10 +37,10 @@ namespace Falcon.Game
             CreateEntities();
         }
 
-        public void Update(float dt)
-        {
-            _entities.ForEach(entity => entity.Update(dt));
-        }
+        public void Update(float dt) =>
+            _entityProvider.Entities
+                .ToList()
+                .ForEach(entity => entity.Update(dt));
 
         public void Perform()
         {
@@ -54,12 +49,12 @@ namespace Falcon.Game
 
         public void RegisterTypes()
         {
-            Kernel.Bind<Player>().To<Player>();
+            _kernel.Bind<Player>().ToSelf();
         }
 
         protected void CreateEntities()
         {
-            var entity = EntityFactory.Create<Player>();
+            var entity = _entityProvider.Create<Player>();
 
             var walkCo = entity.FindComponent<WalkComponent>();
             walkCo.ForwardKey = ConsoleKey.W;
@@ -67,12 +62,10 @@ namespace Falcon.Game
 
             var jumpCo = entity.FindComponent<JumpComponent>();
             jumpCo.JumpKey = ConsoleKey.Spacebar;
-
-            _entities.Add(entity);
-
+            
             Task.Run(async () =>
             {
-                var msg = await StateManager.Update(entity);
+                var msg = await _stateManager.Update(entity);
                 Console.WriteLine(msg);
             });
         }
