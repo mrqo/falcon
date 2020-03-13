@@ -6,37 +6,21 @@ using Falcon.Engine.Communication;
 namespace Falcon.Engine.Ecs
 {
     public abstract class Entity 
-        : IComponentResolver
-        , IMessageDispatcher
+        : IMessageDispatcher
         , INotificationDispatcher
     {
-        protected INotificationHub NotificationHub { get; private set; }
+        private INotificationHub _notificationHub;
 
-        protected IComponentResolver ComponentResolver { get; private set; }
+        public IComponentResolver ComponentResolver { get; }
 
         public IReadOnlyCollection<Component> Components => ComponentResolver.Components;
 
-        public Entity(
-            INotificationHub notificationHub,
-            IComponentResolver componentResolver)
+        public Entity(EntityDeps deps)
         {
-            NotificationHub = notificationHub;
-            ComponentResolver = componentResolver;
+            _notificationHub = deps.NotificationHub;
+            ComponentResolver = deps.ComponentResolver;
+            ComponentResolver.Entity = this;
         }
-
-        public IComponentResolver With(Component component)
-        {
-            component.Entity = this;
-            ComponentResolver.With(component);
-
-            return this;
-        }
-
-        public Component FindComponent(Type t) =>
-            ComponentResolver.FindComponent(t);
-
-        public TComponent FindComponent<TComponent>() where TComponent : Component =>
-            ComponentResolver.FindComponent<TComponent>();
 
         public void Update(float dt)
         {
@@ -59,6 +43,6 @@ namespace Falcon.Engine.Ecs
                 .ForEach(comp => comp.ReceiveMsg(msg, sender));
 
         public bool DispatchNotification(string topic, object msg, object sender) =>
-            NotificationHub.DispatchNotification(topic, msg, sender);
+            _notificationHub.DispatchNotification(topic, msg, sender);
     }
 }

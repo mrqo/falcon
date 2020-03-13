@@ -10,7 +10,7 @@ namespace Falcon.Game.Components
     {
         public override void Update()
         {
-            var walkComp = Entity.FindComponent<WalkComponent>();
+            var walkComp = Entity.ComponentResolver.Find<WalkComponent>();
         }
     }
 }

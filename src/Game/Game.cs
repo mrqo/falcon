@@ -56,11 +56,11 @@ namespace Falcon.Game
         {
             var entity = _entityProvider.Create<Player>();
 
-            var walkCo = entity.FindComponent<WalkComponent>();
+            var walkCo = entity.ComponentResolver.Find<WalkComponent>();
             walkCo.ForwardKey = ConsoleKey.W;
             walkCo.BackwardKey = ConsoleKey.S;
 
-            var jumpCo = entity.FindComponent<JumpComponent>();
+            var jumpCo = entity.ComponentResolver.Find<JumpComponent>();
             jumpCo.JumpKey = ConsoleKey.Spacebar;
             
             Task.Run(async () =>

@@ -27,7 +27,8 @@ namespace Falcon.Engine.Implementation.Ecs
         }
 
         public IEnumerable<Entity> Get() =>
-            _entityProvider.Entities.Where(e =>
-                _componentTypes.TrueForAll(compType => e.FindComponent(compType) != null));
+            _componentTypes.Count == 0
+                ? _entityProvider.Entities
+                : _entityProvider.WithComponents(_componentTypes);
     }
 }

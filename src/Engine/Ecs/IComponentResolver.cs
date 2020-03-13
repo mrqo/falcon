@@ -6,11 +6,14 @@ namespace Falcon.Engine.Ecs
 {
     public interface IComponentResolver
     {
-        IComponentResolver With(Component component);
-
-        Component FindComponent(Type t);
+        public Entity Entity { get; set; }
         
-        TComponent FindComponent<TComponent>() where TComponent : Component;
+        // #TODO: Implement OnAdd event.
+        IComponentResolver Add<TComponent>() where TComponent : Component;
+
+        Component Find(Type t);
+        
+        TComponent Find<TComponent>() where TComponent : Component;
 
         IReadOnlyCollection<Component> Components { get; }
     }

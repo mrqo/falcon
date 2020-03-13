@@ -10,16 +10,14 @@ namespace Falcon.Game.Entities
 {
     class Player : Entity
     {
-        public Player(
-            INotificationHub notificationHub,
-            IComponentResolver componentResolver,
-            IComponentFactory compFactory)
-        : base(notificationHub, componentResolver)
+        public Player(EntityDeps deps)
+        : base(deps)
         {
-            this.With(compFactory.Create<JumpComponent>())
-                .With(compFactory.Create<WalkComponent>())
-                .With(compFactory.Create<ControllerComponent>())
-                .With(compFactory.Create<RenderableComponent>());
+            ComponentResolver
+                .Add<JumpComponent>()
+                .Add<WalkComponent>()
+                .Add<ControllerComponent>()
+                .Add<RenderableComponent>();
         }
     }
 }

@@ -10,7 +10,11 @@ namespace Falcon.Engine.Ecs
         IEnumerable<Entity> Entities { get; }
 
         TEntity Create<TEntity>() where TEntity : Entity;
+
+        void Add<TEntity>(TEntity entity) where TEntity : Entity;
         
         IEntityQueryBuilder Query();
+
+        IEnumerable<Entity> WithComponents(IEnumerable<Type> componentTypes);
     }
 }

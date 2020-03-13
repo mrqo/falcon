@@ -9,25 +9,38 @@ namespace Falcon.Engine.Implementation.Ecs
 {
     public class ComponentResolver : IComponentResolver
     {
-        private List<Component> _components;
-
+        public Entity Entity { get; set; }
+        
+        private IComponentFactory _componentFactory;
+        
+        private List<Component> _components = new List<Component>();
+        
         public IReadOnlyCollection<Component> Components => _components;
 
-        public ComponentResolver()
+        public ComponentResolver(IComponentFactory compFactory)
         {
-            _components = new List<Component>();
+            _componentFactory = compFactory;
         }
 
-        public IComponentResolver With(Component component)
+        public IComponentResolver Add<TComponent>()
+            where TComponent : Component
         {
+            if (Entity == null)
+            {
+                throw new ArgumentException("Entity is not set. Cannot assign component to null entity.");
+            }
+            
+            var component = _componentFactory.Create<TComponent>();
+            component.Entity = Entity;
+            
             _components.Add(component);
             return this;
         }
 
-        public Component FindComponent(Type t) =>
+        public Component Find(Type t) =>
             _components.FirstOrDefault(comp => comp.GetType() == t);
 
-        public TComponent FindComponent<TComponent>() where TComponent : Component =>
-            FindComponent(typeof(TComponent)) as TComponent;
+        public TComponent Find<TComponent>() where TComponent : Component =>
+            Find(typeof(TComponent)) as TComponent;
     }
 }

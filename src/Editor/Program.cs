@@ -127,6 +127,10 @@ namespace ImGuiNET
                 .Bind<IEntityFactory>()
                 .To<EntityFactory>()
                 .InSingletonScope();
+
+            kernel
+                .Bind<EntityDeps>()
+                .ToSelf();
         }
     }
 }

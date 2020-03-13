@@ -8,11 +8,8 @@ namespace Falcon.Engine.World
 {
     public class Level : Entity
     {
-        public Level(
-            INotificationHub notificationHub,
-            IComponentResolver componentResolver,
-            IComponentFactory compFactory)
-        : base(notificationHub, componentResolver)
+        public Level(EntityDeps deps)
+            : base(deps)
         {
             // #TODO: Add components related to level.
         }
