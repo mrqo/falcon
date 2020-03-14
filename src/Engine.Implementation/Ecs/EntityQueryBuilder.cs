@@ -16,7 +16,6 @@ namespace Falcon.Engine.Implementation.Ecs
         {
             _entityProvider = provider;
             _componentTypes = new List<Type>();
-
             return this;
         }
         

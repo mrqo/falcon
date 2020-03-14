@@ -41,7 +41,9 @@ namespace Falcon.Editor.Components
 
         public override void Render()
         {
+            
             ImGui.Begin("Creation");
+            ImGui.ShowDemoWindow();
             ImGui.ListBox(
                 string.Empty, 
                 ref selectedEntityId, 

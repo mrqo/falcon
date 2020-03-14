@@ -61,9 +61,9 @@ namespace ImGuiNET
 
             IntPtr context = ImGui.CreateContext();
             ImGui.SetCurrentContext(context);
-            var fonts = ImGui.GetIO().Fonts;
-            ImGui.GetIO().Fonts.AddFontDefault();
-
+            ImGui.GetIO().Fonts.AddFontFromFileTTF("Roboto-Regular.ttf", 14.0f);
+            ImGui.GetIO().Fonts.AddFontFromFileTTF("Roboto-Black.ttf", 14.0f);
+            
             CreateDeviceResources(gd, outputDescription);
             SetKeyMappings();
 
