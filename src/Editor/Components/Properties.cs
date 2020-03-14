@@ -9,13 +9,10 @@ namespace Falcon.Editor.Components
 {
     public class Properties : Component
     {
-        public string GroupName { get; set; }
-
         public List<EditorProperty> Props { get; set; } = new List<EditorProperty>();
 
         public override void Render()
         {
-            ImGui.Text(GroupName);
             for (int i = 0; i < Props.Count; i++)
             {
                 if (Props[i].PropertyType == typeof(double))

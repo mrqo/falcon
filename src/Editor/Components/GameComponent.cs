@@ -6,6 +6,7 @@ using System.Text;
 using Falcon.Editor.Models;
 using Falcon.Engine.Ecs;
 using Falcon.Engine.UI;
+using ImGuiNET;
 using Component = Falcon.Engine.UI.Component;
 
 namespace Falcon.Editor.Components
@@ -35,8 +36,7 @@ namespace Falcon.Editor.Components
             {
                 return;
             }
-
-            _propsComponent.GroupName = gameComponent.GetType().Name;
+            
             _propsComponent.Props = gameComponent
                 .GetType()
                 .GetProperties()
@@ -50,9 +50,7 @@ namespace Falcon.Editor.Components
                 .ToList();
         }
 
-        public override void Render()
-        {
+        public override void Render() =>
             _propsComponent.Render();
-        }
     }
 }

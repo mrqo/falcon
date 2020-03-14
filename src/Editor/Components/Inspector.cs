@@ -12,7 +12,7 @@ namespace Falcon.Editor.Components
 {
     public class Entities : Component
     {
-        private EntityEdit _entityEditComponent = new EntityEdit();
+        private EntityEdit _components = new EntityEdit();
 
         private IEntityProvider entityProvider;
 
@@ -36,38 +36,41 @@ namespace Falcon.Editor.Components
                 .Get()
                 .FirstOrDefault();
             
-            this._entityEditComponent.Init(entity);
+            this._components.Init(entity);
         }
 
         public override void Render()
         {
-            
-            ImGui.Begin("Creation");
             ImGui.ShowDemoWindow();
-            ImGui.ListBox(
-                string.Empty, 
-                ref selectedEntityId, 
-                entityProvider
-                        .Entities
-                        .Select(entity => entity.GetType().Name)
-                        .ToArray(),
-                entityProvider
-                    .Entities.Count());
-
-            if (ImGui.Button("Edit"))
+            ImGui.Begin("Inspector");
+            
+            if (ImGui.BeginTabBar("entityTabs"))
             {
-                OnEditPressed();
+                if (ImGui.BeginTabItem("Components"))
+                {
+                    _components.Render();
+                    
+                    if (ImGui.Button("Add component"))
+                    {
+                        OnAddComponentPressed();
+                    }
+                    
+                    ImGui.SameLine();
+                    ImGui.EndTabItem();
+                }
+
+                if (ImGui.BeginTabItem("Properties"))
+                {
+                    ImGui.EndTabItem();
+                }
             }
-
-            _entityEditComponent.Render();
-
+            
             ImGui.End();
         }
-
-        private void OnEditPressed()
+        
+        private void OnAddComponentPressed()
         {
-            Console.WriteLine($"Edit entity {selectedEntityId}");
-            this._entityEditComponent.Init(entityProvider.Entities.ToArray()[selectedEntityId]);
+            
         }
     }
 }

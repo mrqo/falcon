@@ -58,14 +58,8 @@ namespace ImGuiNET
             while (_window.Exists)
             {
                 InputSnapshot snapshot = _window.PumpEvents();
-                if (!_window.Exists)
-                {
-                    break;
-                }
-                
+
                 _controller.Update(1f / 60f, snapshot);
-                ImGui.ShowFontSelector("Fonts");
-                
                 _entitiesComponent.Render();
                 executionEnv.Step(1f / 60f);
 
