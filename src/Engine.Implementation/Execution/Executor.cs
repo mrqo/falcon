@@ -12,54 +12,32 @@ namespace Falcon.Engine.Implementation.Execution
 {
     public class Executor : IExecutor
     {
-        public IExecutionTarget Target { get; private set; }
+        private readonly IExecutionTarget _target;
 
-        public IKernel Kernel { get; private set; }
-
+        private readonly IKernel _kernel;
+        
         public Executor(IKernel kernel, IExecutionTarget target)
         {
-            Kernel = kernel;
-            Target = target;
+            _kernel = kernel;
+            _target = target;
 
             RegisterDefaultTypes();
             RegisterExecutionTargetTypes();
             StartExecutionTarget();
         }
 
-        protected void RegisterDefaultTypes()
+        private void RegisterDefaultTypes()
         {
-            Kernel.Bind<Level>().To<Level>();
+            _kernel.Bind<Level>().To<Level>();
         }
 
-        protected void RegisterExecutionTargetTypes()
-        {
-            Target.RegisterTypes();
-        }
+        private void RegisterExecutionTargetTypes() =>
+            _target.RegisterTypes();
 
-        protected void StartExecutionTarget()
-        {
-            Target.Start();
-        }
-
-        public void Run()
-        {
-            float dt = 0.01f;
-
-            while (true)
-            {
-                Step(dt);
-            }
-        }
-
-        public void Step(float dt)
-        {
-            if (Target == null)
-            {
-                return;
-            }
-
-            Target.Update(dt);
-            Target.Perform();
-        }
+        private void StartExecutionTarget() =>
+            _target.Start();
+        
+        public void Step(float dt) =>
+            _target.Step(dt);
     }
 }

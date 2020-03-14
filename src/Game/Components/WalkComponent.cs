@@ -17,30 +17,5 @@ namespace Falcon.Game.Components
 
         [CoProperty]
         public ConsoleKey BackwardKey { get; set; }
-
-        public override void RegisterSubscriptions(INotificationHub hub)
-        {
-            base.RegisterSubscriptions(hub);
-
-            hub.Subscribe("KeyPressed", OnKeyPressed);
-        }
-
-        public override void Update()
-        {
-
-        }
-
-        protected void OnKeyPressed(object msg, object sender)
-        {
-            if ((ConsoleKey) msg == ForwardKey)
-            {
-                Console.WriteLine("Moving forwards");
-            }
-
-            if ((ConsoleKey) msg == BackwardKey)
-            {
-                Console.WriteLine("Moving backwards");
-            }
-        }
     }
 }

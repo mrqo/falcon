@@ -21,16 +21,7 @@ namespace Falcon.Engine.Ecs
             ComponentResolver = deps.ComponentResolver;
             ComponentResolver.Entity = this;
         }
-
-        public void Update(float dt)
-        {
-            foreach (var comp in ComponentResolver.Components)
-            {
-                comp.Dt = dt;
-                comp.Update();
-            }
-        }
-
+        
         public void DispatchMsg(object msg, object sender) =>
             ComponentResolver.Components
                 .ToList()

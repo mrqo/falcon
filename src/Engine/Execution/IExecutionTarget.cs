@@ -14,8 +14,6 @@ namespace Falcon.Engine.Execution
 
         void Start();
 
-        void Update(float dt);
-
-        void Perform();
+        void Step(float dt);
     }
 }

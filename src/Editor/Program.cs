@@ -11,6 +11,7 @@ using Falcon.Engine.Implementation.Communication;
 using Falcon.Engine.Implementation.Execution;
 using Falcon.Engine.Implementation.Networking;
 using Falcon.Engine.Networking;
+using Falcon.Game.Systems;
 using ImGuiNET;
 using Ninject;
 using Veldrid;
@@ -128,6 +129,10 @@ namespace ImGuiNET
             kernel
                 .Bind<EntityDeps>()
                 .ToSelf();
+
+            kernel
+	            .Bind<PlayerMovementSystem>()
+	            .ToSelf();
         }
         
         private static void Style()

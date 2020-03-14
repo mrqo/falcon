@@ -10,26 +10,31 @@ using Falcon.Engine.Execution;
 using Falcon.Engine.Networking;
 using Falcon.Game.Components;
 using Falcon.Game.Entities;
+using Falcon.Game.Systems;
 using Ninject;
 
 namespace Falcon.Game
 {
     public class Game : IExecutionTarget
     {
-        private readonly IStateManager _stateManager;
-        
         private readonly IEntityProvider _entityProvider;
 
         private readonly IKernel _kernel;
 
+        private readonly List<ISystem> _systems;
+        
         public Game(
-            IStateManager stateManager,
             IEntityProvider entityProvider,
-            IKernel kernel)
+            IKernel kernel,
+            PlayerMovementSystem playerMovementSystem)
         {
-            _stateManager = stateManager;
             _entityProvider = entityProvider;
             _kernel = kernel;
+
+            _systems = new List<ISystem>
+            {
+                playerMovementSystem
+            };
         }
 
         public void Start()
@@ -37,37 +42,34 @@ namespace Falcon.Game
             CreateEntities();
         }
 
-        public void Update(float dt) =>
-            _entityProvider.Entities
-                .ToList()
-                .ForEach(entity => entity.Update(dt));
-
-        public void Perform()
-        {
-            // #TODO: Render logic here
-        }
-
+        public void Step(float dt) =>
+            _systems.ForEach(system =>
+            {
+                system.Dt = dt;
+                system.Step();
+            });
+        
         public void RegisterTypes()
         {
             _kernel.Bind<Player>().ToSelf();
         }
 
-        protected void CreateEntities()
+        private void CreateEntities()
         {
             var entity = _entityProvider.Create<Player>();
+            ConfigureComponent(entity.ComponentResolver.Find<WalkComponent>());
+            ConfigureComponent(entity.ComponentResolver.Find<JumpComponent>());
+        }
+        
+        private static void ConfigureComponent(WalkComponent walkComponent)
+        {
+            walkComponent.ForwardKey = ConsoleKey.W;
+            walkComponent.BackwardKey = ConsoleKey.S;
+        }
 
-            var walkCo = entity.ComponentResolver.Find<WalkComponent>();
-            walkCo.ForwardKey = ConsoleKey.W;
-            walkCo.BackwardKey = ConsoleKey.S;
-
-            var jumpCo = entity.ComponentResolver.Find<JumpComponent>();
-            jumpCo.JumpKey = ConsoleKey.Spacebar;
-            
-            Task.Run(async () =>
-            {
-                var msg = await _stateManager.Update(entity);
-                Console.WriteLine(msg);
-            });
+        private static void ConfigureComponent(JumpComponent jumpComponent)
+        {
+            jumpComponent.JumpKey = ConsoleKey.Spacebar;
         }
     }
 }

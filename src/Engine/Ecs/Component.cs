@@ -13,11 +13,7 @@ namespace Falcon.Engine.Ecs
         , INotificationSubscriber
     {
         public Entity Entity { get; set; }
-
-        public float Dt { get; set; }
-
-        public abstract void Update();
-
+        
         public void Msg(object msg)
         {
             Entity?.DispatchMsg(msg, this);

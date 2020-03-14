@@ -15,9 +15,7 @@ namespace Falcon.Game.Entities
         {
             ComponentResolver
                 .Add<JumpComponent>()
-                .Add<WalkComponent>()
-                .Add<ControllerComponent>()
-                .Add<RenderableComponent>();
+                .Add<WalkComponent>();
         }
     }
 }

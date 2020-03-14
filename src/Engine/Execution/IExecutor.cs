@@ -9,8 +9,6 @@ namespace Falcon.Engine.Execution
 {
     public interface IExecutor
     {
-        void Run();
-
         void Step(float dt);
     }
 }

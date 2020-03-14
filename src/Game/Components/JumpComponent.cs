@@ -11,12 +11,14 @@ namespace Falcon.Game.Components
 {
     public class JumpComponent : Component
     {
-        enum State
+        public enum JumpState
         {
             Idle,
             InAir
         }
-
+        
+        public JumpState State { get; set; }
+        
         [CoProperty]
         public double MaxHeight { get; set; } = 15.0;
 
@@ -27,64 +29,13 @@ namespace Falcon.Game.Components
         public ConsoleKey JumpKey { get; set; }
 
         [CoProperty]
-        public double CurHeight { get; private set; } = 0.0;
+        public double CurHeight { get; set; }
 
         [CoProperty]
-        public double CurTime { get; private set; } = 0.0;
+        public double CurTime { get; set; }
 
-        private State _state = State.Idle;
+        public bool IsIdle => State == JumpState.Idle;
 
-        public override void RegisterSubscriptions(INotificationHub hub)
-        {
-            base.RegisterSubscriptions(hub);
-
-            hub.Subscribe("KeyPressed", OnKeyPressed);
-        }
-
-        public override void Update()
-        {
-            UpdateJumpTime();
-            UpdateHeight();
-
-            if (_state == State.InAir)
-            {
-                Console.WriteLine($"Height: {CurHeight}");
-            }
-        }
-
-        protected void UpdateJumpTime()
-        {
-            if (_state == State.Idle)
-            {
-                return;
-            }
-
-            if (_state == State.InAir)
-            {
-                CurTime += Dt;
-            }
-
-            if (CurTime > FloatingTime)
-            {
-                CurTime = 0;
-                _state = State.Idle;
-            }
-        }
-
-        protected void UpdateHeight()
-        {
-            CurHeight = Math.Sin(CurTime / FloatingTime * Math.PI) * MaxHeight;
-        }
-
-        protected void OnKeyPressed(object msg, object sender)
-        {
-            if ((ConsoleKey)msg == JumpKey)
-            {
-                if (_state == State.Idle)
-                {
-                    _state = State.InAir;
-                }
-            }
-        }
+        public bool IsInAir => State == JumpState.InAir;
     }
 }
