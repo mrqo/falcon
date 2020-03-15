@@ -59,13 +59,20 @@ namespace Falcon.Engine.Implementation.Ecs
             
             _entities.Add(entity);
         }
+
+        public Entity Get(int entityId) =>
+            Get<Entity>(entityId);
+        
+        public TEntity Get<TEntity>(int entityId)
+            where TEntity : Entity =>
+            _entities
+                .FirstOrDefault(entity => entity.GetHashCode() == entityId) as TEntity;
         
         public IEntityQueryBuilder Query() =>
             _queryBuilder.Init(this);
 
-        public IEnumerable<Entity> WithComponents(IEnumerable<Type> componentTypes)
-        {
-            return componentTypes
+        public IEnumerable<Entity> WithComponents(IEnumerable<Type> componentTypes) =>
+            componentTypes
                 .Select(ct => _compTypesToEntities.GetValueOrDefault(ct))
                 .Where(ct => ct != null)
                 .Aggregate((acc, next) =>
@@ -74,6 +81,5 @@ namespace Falcon.Engine.Implementation.Ecs
                     return acc;
                 })
                 .Select(id => _entities.FirstOrDefault(e => e.GetHashCode() == id));
-        }
     }
 }

@@ -11,46 +11,46 @@ using Component = Falcon.Engine.UI.Component;
 
 namespace Falcon.Editor.Components
 {
-    public class GameComponent : Component
+    public class ComponentEdit : Component
     {
-        private Properties _propsComponent = new Properties();
+        private PropertyList _propertyList = new PropertyList();
 
-        private Engine.Ecs.Component gameComponent;
+        private Engine.Ecs.Component _gameComponent;
 
-        public static GameComponent Create(Engine.Ecs.Component component)
+        private int _componentId = -1;
+
+        public int ComponentId
         {
-            var view = new GameComponent();
-            view.Init(component);
-            return view;
+            get => _componentId;
+            set
+            {
+                _componentId = value;
+                OnComponentIdSet();
+            }
         }
-
-        public void Init(Engine.Ecs.Component component)
+        
+        private void OnComponentIdSet()
         {
-            this.gameComponent = component;
-            InitPropsView();
-        }
-
-        private void InitPropsView()
-        {
-            if (gameComponent == null)
+            _gameComponent = null; // #TODO: Create ComponentProvider and get by id
+            if (_gameComponent == null)
             {
                 return;
             }
             
-            _propsComponent.Props = gameComponent
+            _propertyList.Props = _gameComponent
                 .GetType()
                 .GetProperties()
                 .Where(prop => prop.GetCustomAttribute(typeof(CoProperty)) != null)
                 .Select(prop => new EditorProperty
                 {
                     Name = prop.Name,
-                    Value = prop.GetValue(gameComponent),
+                    Value = prop.GetValue(_gameComponent),
                     PropertyType = prop.PropertyType
                 })
                 .ToList();
         }
-
+        
         public override void Render() =>
-            _propsComponent.Render();
+            _propertyList.Render();
     }
 }

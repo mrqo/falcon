@@ -8,12 +8,10 @@ using Falcon.Engine.Networking;
 
 namespace Falcon.Engine.Execution
 {
-    public interface IExecutionTarget
+    public interface IBootstrapper
     {
         void RegisterTypes();
 
         void Start();
-
-        void Step(float dt);
     }
 }

@@ -15,39 +15,24 @@ using Ninject;
 
 namespace Falcon.Game
 {
-    public class Game : IExecutionTarget
+    public class Bootstrapper : IBootstrapper
     {
         private readonly IEntityProvider _entityProvider;
 
         private readonly IKernel _kernel;
-
-        private readonly List<ISystem> _systems;
         
-        public Game(
+        public Bootstrapper(
             IEntityProvider entityProvider,
-            IKernel kernel,
-            PlayerMovementSystem playerMovementSystem)
+            IKernel kernel)
         {
             _entityProvider = entityProvider;
             _kernel = kernel;
-
-            _systems = new List<ISystem>
-            {
-                playerMovementSystem
-            };
         }
 
         public void Start()
         {
             CreateEntities();
         }
-
-        public void Step(float dt) =>
-            _systems.ForEach(system =>
-            {
-                system.Dt = dt;
-                system.Step();
-            });
         
         public void RegisterTypes()
         {

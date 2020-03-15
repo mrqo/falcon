@@ -7,7 +7,7 @@ using ImGuiNET;
 
 namespace Falcon.Editor.Components
 {
-    public class Properties : Component
+    public class PropertyList : Component
     {
         public List<EditorProperty> Props { get; set; } = new List<EditorProperty>();
 

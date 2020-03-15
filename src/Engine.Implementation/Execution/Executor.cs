@@ -12,18 +12,24 @@ namespace Falcon.Engine.Implementation.Execution
 {
     public class Executor : IExecutor
     {
-        private readonly IExecutionTarget _target;
-
         private readonly IKernel _kernel;
         
-        public Executor(IKernel kernel, IExecutionTarget target)
+        private readonly IBootstrapper _bootstrapper;
+
+        private readonly ISystemManager _systemManager;
+        
+        public Executor(
+            IKernel kernel, 
+            IBootstrapper bootstrapper,
+            ISystemManager systemManager)
         {
             _kernel = kernel;
-            _target = target;
-
+            _bootstrapper = bootstrapper;
+            _systemManager = systemManager;
+            
             RegisterDefaultTypes();
-            RegisterExecutionTargetTypes();
-            StartExecutionTarget();
+            RegisterGameTypes();
+            Bootstrap();
         }
 
         private void RegisterDefaultTypes()
@@ -31,13 +37,13 @@ namespace Falcon.Engine.Implementation.Execution
             _kernel.Bind<Level>().To<Level>();
         }
 
-        private void RegisterExecutionTargetTypes() =>
-            _target.RegisterTypes();
+        private void RegisterGameTypes() =>
+            _bootstrapper.RegisterTypes();
 
-        private void StartExecutionTarget() =>
-            _target.Start();
+        private void Bootstrap() =>
+            _bootstrapper.Start();
         
         public void Step(float dt) =>
-            _target.Step(dt);
+            _systemManager.Execute(dt);
     }
 }

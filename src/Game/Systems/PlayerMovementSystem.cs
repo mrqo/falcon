@@ -9,6 +9,8 @@ namespace Falcon.Game.Systems
     public class PlayerMovementSystem : ISystem
     {
         private readonly IEntityProvider _entityProvider;
+
+        public bool IsActive { get; set; } = true;
         
         public double Dt { get; set; }
         

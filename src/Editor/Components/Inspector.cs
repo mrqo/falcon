@@ -10,45 +10,34 @@ using Component = Falcon.Engine.UI.Component;
 
 namespace Falcon.Editor.Components
 {
-    public class Entities : Component
+    public class Inspector : Component
     {
-        private EntityEdit _components = new EntityEdit();
-
-        private IEntityProvider entityProvider;
-
-        protected int selectedEntityId;
-
-        public static Entities Create(IEntityProvider entityProvider)
+        private ComponentsEdit _componentsEdit;
+        
+        public Inspector(
+            ComponentsEdit componentsEdit,
+            IEntityProvider entityProvider)
         {
-            var view = new Entities();
-            view.Init(entityProvider);
-            return view;
-        }
+            _componentsEdit = componentsEdit;
 
-        public void Init(IEntityProvider entityProvider)
-        {
-            this.entityProvider = entityProvider;
-            
-            var entity = entityProvider
+            componentsEdit.EntityId = entityProvider
                 .Query()
                 .With<JumpComponent>()
                 .With<WalkComponent>()
                 .Get()
-                .FirstOrDefault();
-            
-            this._components.Init(entity);
+                .FirstOrDefault()
+                ?.GetHashCode() ?? -1;
         }
-
+        
         public override void Render()
         {
-            ImGui.ShowDemoWindow();
             ImGui.Begin("Inspector");
             
             if (ImGui.BeginTabBar("entityTabs"))
             {
                 if (ImGui.BeginTabItem("Components"))
                 {
-                    _components.Render();
+                    _componentsEdit.Render();
                     
                     if (ImGui.Button("Add component"))
                     {
@@ -70,7 +59,6 @@ namespace Falcon.Editor.Components
         
         private void OnAddComponentPressed()
         {
-            
         }
     }
 }
