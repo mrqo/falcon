@@ -9,7 +9,7 @@ using Falcon.Engine.UI;
 using ImGuiNET;
 using Component = Falcon.Engine.UI.Component;
 
-namespace Falcon.Editor.Components
+namespace Falcon.Editor.Components.Entities
 {
     public class ComponentEdit : Component
     {

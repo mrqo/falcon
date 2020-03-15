@@ -5,7 +5,7 @@ using Falcon.Editor.Models;
 using Falcon.Engine.UI;
 using ImGuiNET;
 
-namespace Falcon.Editor.Components
+namespace Falcon.Editor.Components.Entities
 {
     public class PropertyList : Component
     {

@@ -6,13 +6,14 @@ using Falcon.Engine.Implementation.Ecs;
 using Falcon.Engine.Execution;
 using Falcon.Game;
 using Falcon.Editor.Components;
+using Falcon.Editor.Components.Entities;
+using Falcon.Editor.Components.Systems;
 using Falcon.Engine.Communication;
 using Falcon.Engine.Implementation.Communication;
 using Falcon.Engine.Implementation.Execution;
 using Falcon.Engine.Implementation.Networking;
 using Falcon.Engine.Networking;
 using Falcon.Game.Systems;
-using ImGuiNET;
 using Ninject;
 using Veldrid;
 using Veldrid.Sdl2;
@@ -37,7 +38,7 @@ namespace ImGuiNET
         static void Main(string[] args)
         {
             VeldridStartup.CreateWindowAndGraphicsDevice(
-                new WindowCreateInfo(50, 50, 1280, 720, WindowState.Maximized, "Falcon Editor"), 
+                new WindowCreateInfo(50, 50, 1280, 720, WindowState.Normal, "Falcon Editor"), 
                 new GraphicsDeviceOptions(true, null, true), 
                 out _window,
                 out _gd);
@@ -98,11 +99,15 @@ namespace ImGuiNET
 		        .ToSelf();
 
 	        kernel
-		        .Bind<Inspector>()
+		        .Bind<Falcon.Editor.Components.Entities.Inspector>()
 		        .ToSelf();
 
 	        kernel
 		        .Bind<PropertyList>()
+		        .ToSelf();
+
+	        kernel
+		        .Bind<Falcon.Editor.Components.Systems.Inspector>()
 		        .ToSelf();
         }
         

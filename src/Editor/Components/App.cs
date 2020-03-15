@@ -1,21 +1,23 @@
-﻿using Falcon.Engine.UI;
+﻿using Falcon.Editor.Components.Entities;
+using Falcon.Engine.UI;
 using ImGuiNET;
+using Ninject;
 
 namespace Falcon.Editor.Components
 {
     public class App : Component
     {
-        private readonly Inspector _inspector;
+        [Inject]
+        public Entities.Inspector EntityInspector { get; set; }
         
-        public App(Inspector inspector)
-        {
-            _inspector = inspector;
-        }
+        [Inject]
+        public Systems.Inspector SystemInspector { get; set; }
         
         public override void Render()
         {
             ImGui.ShowDemoWindow();
-            _inspector.Render();
+            EntityInspector.Render();
+            SystemInspector.Render();
         }
     }
 }
