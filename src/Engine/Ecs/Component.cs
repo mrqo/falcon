@@ -12,7 +12,12 @@ namespace Falcon.Engine.Ecs
         , INotificationBroadcaster
         , INotificationSubscriber
     {
-        public Entity Entity { get; set; }
+        public Entity Entity { get; }
+
+        public Component(Entity entity)
+        {
+            Entity = entity;
+        }
         
         public void Msg(object msg)
         {

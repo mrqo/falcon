@@ -37,10 +37,18 @@ namespace Falcon.Engine.Implementation.Ecs
             return entity;
         }
 
-        public void Add<TEntity>(TEntity entity)
-            where TEntity : Entity
+        public bool Add(Entity entity)
         {
             // #TODO: Subscribe to entity's ComponentResolver OnAdd event
+            if (entity == null)
+            {
+                return false;
+            }
+
+            if (!_entities.Add(entity))
+            {
+                return false;
+            }
             
             entity.Components
                 .Select(comp => comp.GetType())
@@ -56,8 +64,8 @@ namespace Falcon.Engine.Implementation.Ecs
                         _compTypesToEntities[ct].Add(entity.GetHashCode());
                     }
                 });
-            
-            _entities.Add(entity);
+
+            return true;
         }
 
         public Entity Get(int entityId) =>

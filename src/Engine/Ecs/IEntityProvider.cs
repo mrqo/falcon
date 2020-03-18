@@ -11,7 +11,7 @@ namespace Falcon.Engine.Ecs
         
         TEntity Create<TEntity>() where TEntity : Entity;
 
-        void Add<TEntity>(TEntity entity) where TEntity : Entity;
+        bool Add(Entity entity);
 
         Entity Get(int entityId);
         

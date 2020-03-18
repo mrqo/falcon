@@ -7,8 +7,8 @@ namespace Falcon.Engine.Ecs
 {
     public interface IComponentFactory
     {
-        Component Create(string componentName);
+        Component Create(Type componentType, Entity entity);
 
-        TComponent Create<TComponent>() where TComponent : Component;
+        TComponent Create<TComponent>(Entity entity) where TComponent : Component;
     }
 }

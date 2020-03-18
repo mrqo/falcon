@@ -103,10 +103,6 @@ namespace ImGuiNET
 		        .ToSelf();
 
 	        kernel
-		        .Bind<PropertyList>()
-		        .ToSelf();
-
-	        kernel
 		        .Bind<Falcon.Editor.Components.Systems.Inspector>()
 		        .ToSelf();
         }
@@ -150,6 +146,11 @@ namespace ImGuiNET
 		        .Bind<IComponentResolver>()
 		        .To<ComponentResolver>();
 
+	        kernel
+		        .Bind<IComponentProvider>()
+		        .To<ComponentProvider>()
+		        .InSingletonScope();
+	        
 	        kernel
 		        .Bind<IStateManager>()
 		        .To<StateManager>();

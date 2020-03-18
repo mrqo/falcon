@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using Falcon.Editor.Models;
 using Falcon.Engine.Ecs;
 using Falcon.Engine.UI;
 using ImGuiNET;
@@ -13,8 +12,6 @@ namespace Falcon.Editor.Components.Entities
 {
     public class ComponentEdit : Component
     {
-        private PropertyList _propertyList = new PropertyList();
-
         private Engine.Ecs.Component _gameComponent;
 
         private int _componentId = -1;
@@ -28,29 +25,45 @@ namespace Falcon.Editor.Components.Entities
                 OnComponentIdSet();
             }
         }
+
+        private readonly IComponentProvider _componentProvider;
+        
+        public ComponentEdit(IComponentProvider componentProvider)
+        {
+            _componentProvider = componentProvider;
+        }
         
         private void OnComponentIdSet()
         {
-            _gameComponent = null; // #TODO: Create ComponentProvider and get by id
-            if (_gameComponent == null)
-            {
-                return;
-            }
-            
-            _propertyList.Props = _gameComponent
+            _gameComponent = _componentProvider.Find(_componentId);
+        }
+
+        public override void Render()
+        {
+            _gameComponent
                 .GetType()
                 .GetProperties()
                 .Where(prop => prop.GetCustomAttribute(typeof(CoProperty)) != null)
-                .Select(prop => new EditorProperty
+                .ToList()
+                .ForEach(prop =>
                 {
-                    Name = prop.Name,
-                    Value = prop.GetValue(_gameComponent),
-                    PropertyType = prop.PropertyType
-                })
-                .ToList();
+                    var value = prop.GetValue(_gameComponent);
+                    if (prop.PropertyType == typeof(double))
+                    {
+                        double a = (double)value;
+                        ImGui.InputDouble(prop.Name, ref a, 0.01);
+                        value = a;
+                    }
+
+                    if (prop.PropertyType == typeof(int))
+                    {
+                        int a = (int) value;
+                        ImGui.InputInt(prop.Name, ref a, 1);
+                        value = a;
+                    }
+
+                    prop.SetValue(_gameComponent, value);
+                });
         }
-        
-        public override void Render() =>
-            _propertyList.Render();
     }
 }

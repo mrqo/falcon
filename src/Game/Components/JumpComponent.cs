@@ -37,5 +37,11 @@ namespace Falcon.Game.Components
         public bool IsIdle => State == JumpState.Idle;
 
         public bool IsInAir => State == JumpState.InAir;
+
+        public JumpComponent(Entity entity)
+            : base(entity)
+        {
+        }
+        
     }
 }

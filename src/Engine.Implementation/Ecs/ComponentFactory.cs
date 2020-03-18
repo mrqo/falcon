@@ -15,20 +15,15 @@ namespace Falcon.Engine.Implementation.Ecs
             _notificationHub = notificationHub;
         }
         
-        public Component Create(string componentName)
-        {
-            var type = Type.GetType(componentName);
-            return type == null 
-                ? null 
-                : InitComponent((Component)Activator.CreateInstance(type));
-        }
+        public Component Create(Type componentType, Entity entity) =>
+            InitComponent((Component)Activator.CreateInstance(componentType, entity));
 
-        public TComponent Create<TComponent>() where TComponent : Component =>
-            InitComponent((TComponent)Activator.CreateInstance(typeof(TComponent)));
-
+        public TComponent Create<TComponent>(Entity entity) where TComponent : Component =>
+            Create(typeof(TComponent), entity) as TComponent;
+        
         private TComponent InitComponent<TComponent>(TComponent comp) where TComponent : Component
         {
-            comp.RegisterSubscriptions(_notificationHub);
+            comp?.RegisterSubscriptions(_notificationHub);
             return comp;
         }
     }

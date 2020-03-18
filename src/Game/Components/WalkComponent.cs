@@ -17,5 +17,10 @@ namespace Falcon.Game.Components
 
         [CoProperty]
         public ConsoleKey BackwardKey { get; set; }
+
+        public WalkComponent(Entity entity)
+            : base(entity)
+        {
+        }
     }
 }
